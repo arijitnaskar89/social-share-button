@@ -6,7 +6,6 @@ window.SocialShareButton =
     window.open(url, 'popup', opt)
     console.log(url)
     false
-    aaa
 
   share : (el) ->
     site = $(el).data('site')
@@ -17,7 +16,7 @@ window.SocialShareButton =
     url = encodeURIComponent($(el).data(site + '-url') || $parent.data("url") || '')
     via = encodeURIComponent($parent.data("via") || '')
     desc = encodeURIComponent($parent.data("desc") || ' ')
-    campaign = encodeURIComponent($parent.data("campaign") || ' ')
+    campaign = encodeURIComponent($parent.data("campaign") || 'blog_share')
 
     # tracking click events if google analytics enabled
     ga = window[window['GoogleAnalyticsObject'] || 'ga']
