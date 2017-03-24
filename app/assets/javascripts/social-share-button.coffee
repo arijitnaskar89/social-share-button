@@ -4,6 +4,7 @@ window.SocialShareButton =
     top = (screen.height * 0.3) - (height / 2)
     opt = "width=#{width},height=#{height},left=#{left},top=#{top},menubar=no,status=no,location=no"
     window.open(url, 'popup', opt)
+    console.log(url)
     false
     aaa
 
@@ -16,6 +17,7 @@ window.SocialShareButton =
     url = encodeURIComponent($(el).data(site + '-url') || $parent.data("url") || '')
     via = encodeURIComponent($parent.data("via") || '')
     desc = encodeURIComponent($parent.data("desc") || ' ')
+    campaign = encodeURIComponent($parent.data("campaign") || ' ')
 
     # tracking click events if google analytics enabled
     ga = window[window['GoogleAnalyticsObject'] || 'ga']
@@ -26,38 +28,38 @@ window.SocialShareButton =
       url = encodeURIComponent(location.href)
     switch site
       when "email"
-        location.href = "mailto:?to=&subject=#{title}&body=#{url}%3Futm_medium=social%26utm_source=Email%26utm_campaign=blog_share"
+        location.href = "mailto:?to=&subject=#{title}&body=#{url}%3Futm_medium=social%26utm_source=Email%26utm_campaign=#{campaign}"
       when "weibo"
         SocialShareButton.openUrl("http://service.weibo.com/share/share.php?url=#{url}&type=3&pic=#{img}&title=#{title}&appkey=#{appkey}", 620, 370)
       when "twitter"
         hashtags = encodeURIComponent($(el).data(site + '-hashtags') || $parent.data('hashtags') || '')
         via_str = ''
         via_str = "&via=#{via}" if via.length > 0
-        SocialShareButton.openUrl("https://twitter.com/intent/tweet?url=#{url}%3Futm_medium=social%26utm_source=Twitter%26utm_campaign=blog_share&text=#{title}&hashtags=#{hashtags}#{via_str}", 650, 300)
+        SocialShareButton.openUrl("https://twitter.com/intent/tweet?url=#{url}%3Futm_medium=social%26utm_source=Twitter%26utm_campaign=#{campaign}&text=#{title}&hashtags=#{hashtags}#{via_str}", 650, 300)
       when "douban"
         SocialShareButton.openUrl("http://shuo.douban.com/!service/share?href=#{url}&name=#{title}&image=#{img}&sel=#{desc}", 770, 470)
       when "facebook"
-        SocialShareButton.openUrl("http://www.facebook.com/sharer/sharer.php?u=#{url}%3Futm_medium=social%26utm_source=Facebook%26utm_campaign=blog_share&display=popup&title=#{title}&description=#{desc}", 555, 400)
+        SocialShareButton.openUrl("http://www.facebook.com/sharer/sharer.php?u=#{url}%3Futm_medium=social%26utm_source=Facebook%26utm_campaign=#{campaign}&display=popup&title=#{title}&description=#{desc}", 555, 400)
       when "qq"
         SocialShareButton.openUrl("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=#{url}&title=#{title}&pics=#{img}&summary=#{desc}&site=#{appkey}")
       when "google_plus"
-        SocialShareButton.openUrl("https://plus.google.com/share?url=#{url}%3Futm_medium=social%26utm_source=GooglePlus%26utm_campaign=blog_share")
+        SocialShareButton.openUrl("https://plus.google.com/share?url=#{url}%3Futm_medium=social%26utm_source=GooglePlus%26utm_campaign=#{campaign}")
       when "google_bookmark"
         SocialShareButton.openUrl("https://www.google.com/bookmarks/mark?op=edit&output=popup&bkmk=#{url}&title=#{title}")
       when "delicious"
         SocialShareButton.openUrl("http://www.delicious.com/save?url=#{url}&title=#{title}&jump=yes&pic=#{img}")
       when "pinterest"
-        SocialShareButton.openUrl("http://www.pinterest.com/pin/create/button/?url=#{url}%3Futm_medium=social%26utm_source=Pinterest%26utm_campaign=blog_share&media=#{img}&description=#{title}")
+        SocialShareButton.openUrl("http://www.pinterest.com/pin/create/button/?url=#{url}%3Futm_medium=social%26utm_source=Pinterest%26utm_campaign=#{campaign}&media=#{img}&description=#{title}")
       when "linkedin"
-        SocialShareButton.openUrl("https://www.linkedin.com/shareArticle?mini=true&url=#{url}%3Futm_medium=social%26utm_source=LinkedIn%26utm_campaign=blog_share&title=#{title}&summary=#{desc}")
+        SocialShareButton.openUrl("https://www.linkedin.com/shareArticle?mini=true&url=#{url}%3Futm_medium=social%26utm_source=LinkedIn%26utm_campaign=#{campaign}&title=#{title}&summary=#{desc}")
       when "xing"
         SocialShareButton.openUrl("https://www.xing.com/spi/shares/new?url=#{url}")
       when "vkontakte"
         SocialShareButton.openUrl("http://vk.com/share.php?url=#{url}&title=#{title}&image=#{img}")
       when "fb_messenger"
-        SocialShareButton.openUrl("fb-messenger://share/?link=#{url}%3Futm_medium=social%26utm_source=FacebookMessenger%26utm_campaign=blog_share")
+        SocialShareButton.openUrl("fb-messenger://share/?link=#{url}%3Futm_medium=social%26utm_source=FacebookMessenger%26utm_campaign=#{campaign}")
       when "blogger"
-        SocialShareButton.openUrl("https://www.blogger.com/blog-this.g?u=#{url}%3Futm_medium=social%26utm_source=Blogger%26utm_campaign=blog_share&n=#{title}&t=#{desc}")
+        SocialShareButton.openUrl("https://www.blogger.com/blog-this.g?u=#{url}%3Futm_medium=social%26utm_source=Blogger%26utm_campaign=#{campaign}&n=#{title}&t=#{desc}")
       when "whatsapp"
         action = 'share/whatsapp/share'
         location.href = "whatsapp://send?text=#{title} #{url}"
